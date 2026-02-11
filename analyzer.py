@@ -18,3 +18,7 @@ def suspicious(data):
     return sus_dict
 
 
+#returns dictionary of ip's with multiple suspicions ot of a "sus" dict
+def very_suspicious(data):
+    more_sus={k:v for k,v in data.items() if len(v) > 1}
+    return more_sus
