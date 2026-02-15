@@ -39,3 +39,9 @@ sensitive_port_lines=map(lambda x:x,filter(lambda x: sensitive_port(x[3]),data))
 
 #func to filter only lines with night activity
 night_activity_lines=map(lambda x:x,filter(lambda x : night_activity(x[0]),data))
+
+#dict of functions to detect problems
+suspicion_test_dict={"EXTERNAL IP": lambda row: external_ip(row[1]),
+                     "SENSITIVE PORT" : lambda row : sensitive_port(row[3]),
+                     "LARGE PACKET": lambda row: large_packet(row[5]),
+                     "NIGHT ACTIVITY" : lambda row :night_activity(row[0])}
