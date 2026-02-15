@@ -33,3 +33,6 @@ time_list=map(lambda x: int(x[11:13]),timstamps )
 
 #function to convert file size to kb
 kb_list=map(lambda x : x/1024, size_list)
+
+#function to filter only lines with sensitive ports
+sensitive_port_lines=map(lambda x:x,filter(lambda x: sensitive_port(x[3]),data))
