@@ -36,3 +36,6 @@ kb_list=map(lambda x : x/1024, size_list)
 
 #function to filter only lines with sensitive ports
 sensitive_port_lines=map(lambda x:x,filter(lambda x: sensitive_port(x[3]),data))
+
+#func to filter only lines with night activity
+night_activity_lines=map(lambda x:x,filter(lambda x : night_activity(x[0]),data))
