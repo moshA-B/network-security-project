@@ -26,3 +26,7 @@ def suspicious(data):
 def very_suspicious(data):
     more_sus={k:v for k,v in data.items() if len(v) > 1}
     return more_sus
+
+#function to save only the time
+timstamps=["2024-01-15 11:02:30","2024-01-15 08:02:30"]
+time_list=map(lambda x: int(x[11:13]),timstamps )
