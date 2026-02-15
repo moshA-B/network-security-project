@@ -30,3 +30,6 @@ def very_suspicious(data):
 #function to save only the time
 timstamps=["2024-01-15 11:02:30","2024-01-15 08:02:30"]
 time_list=map(lambda x: int(x[11:13]),timstamps )
+
+#function to convert file size to kb
+kb_list=map(lambda x : x/1024, size_list)
