@@ -45,3 +45,8 @@ suspicion_test_dict={"EXTERNAL IP": lambda row: external_ip(row[1]),
                      "SENSITIVE PORT" : lambda row : sensitive_port(row[3]),
                      "LARGE PACKET": lambda row: large_packet(row[5]),
                      "NIGHT ACTIVITY" : lambda row :night_activity(row[0])}
+
+#function that returns a list of all problems in a line
+def label_function(row):
+    res=filter(lambda x : suspicion_test_dict[x](row),suspicion_test_dict)
+    return list(res)
