@@ -10,9 +10,13 @@ def suspicious(data):
         if sensitive_port(log[3]):
             current.append('SENSITIVE_PORT')
         if night_activity(log[0]):
-            current.append('NIGHT ACTIVITY')
+            current.append('NIGHT_ACTIVITY')
         if large_packet(log[5]):
             current.append('LARGE_PACKET')
+        if log[1] in sus_dict:
+            for i in sus_dict[log[1]]:
+              if i not in current:
+                  current.append(i)
         if len(current)>0:
             sus_dict[log[1]]=sus_dict.get(log[1],current)
     return sus_dict
