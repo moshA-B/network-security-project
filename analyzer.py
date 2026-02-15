@@ -50,3 +50,6 @@ suspicion_test_dict={"EXTERNAL IP": lambda row: external_ip(row[1]),
 def label_function(row):
     res=filter(lambda x : suspicion_test_dict[x](row),suspicion_test_dict)
     return list(res)
+
+#function to return the list of problems on a line throughout the whole log
+full_log_label=filter(lambda item :len(item) > 0 ,map(lambda x : label_function(x),data))
