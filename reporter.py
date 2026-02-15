@@ -1,6 +1,5 @@
 
 
-
 #returns dict of ip : times interacted with
 def count_calls(data):
     times={}

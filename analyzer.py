@@ -10,9 +10,13 @@ def suspicious(data):
         if sensitive_port(log[3]):
             current.append('SENSITIVE_PORT')
         if night_activity(log[0]):
-            current.append('NIGHT ACTIVITY')
+            current.append('NIGHT_ACTIVITY')
         if large_packet(log[5]):
             current.append('LARGE_PACKET')
+        if log[1] in sus_dict:
+            for i in sus_dict[log[1]]:
+              if i not in current:
+                  current.append(i)
         if len(current)>0:
             sus_dict[log[1]]=sus_dict.get(log[1],current)
     return sus_dict
@@ -22,3 +26,30 @@ def suspicious(data):
 def very_suspicious(data):
     more_sus={k:v for k,v in data.items() if len(v) > 1}
     return more_sus
+
+#function to save only the time
+timstamps=["2024-01-15 11:02:30","2024-01-15 08:02:30"]
+time_list=map(lambda x: int(x[11:13]),timstamps )
+
+#function to convert file size to kb
+kb_list=map(lambda x : x/1024, size_list)
+
+#function to filter only lines with sensitive ports
+sensitive_port_lines=map(lambda x:x,filter(lambda x: sensitive_port(x[3]),data))
+
+#func to filter only lines with night activity
+night_activity_lines=map(lambda x:x,filter(lambda x : night_activity(x[0]),data))
+
+#dict of functions to detect problems
+suspicion_test_dict={"EXTERNAL IP": lambda row: external_ip(row[1]),
+                     "SENSITIVE PORT" : lambda row : sensitive_port(row[3]),
+                     "LARGE PACKET": lambda row: large_packet(row[5]),
+                     "NIGHT ACTIVITY" : lambda row :night_activity(row[0])}
+
+#function that returns a list of all problems in a line
+def label_function(row):
+    res=filter(lambda x : suspicion_test_dict[x](row),suspicion_test_dict)
+    return list(res)
+
+#function to return the list of problems on a line throughout the whole log
+full_log_label=filter(lambda item :len(item) > 0 ,map(lambda x : label_function(x),data))

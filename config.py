@@ -17,5 +17,5 @@ def large_packet(pack):
 #checks sus activity time
 def night_activity(time):
     a,b=time.split()
-    return int(b[0:2]) < 7
+    return int(b[0:2]) < 6
 
